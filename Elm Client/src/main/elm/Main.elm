@@ -5,6 +5,7 @@ import Http
 import Json.Decode as Decode
 import Json.Encode as Encode
 
+
 main : Program Never Model Msg
 main =
   Html.program
@@ -17,7 +18,9 @@ main =
 url : String -> String
 url action = "http://localhost:9000/member/" ++ action
 
+
 -- MODEL
+
 
 type alias Model =
   { count : Int
@@ -38,7 +41,9 @@ type alias Member =
   , email : String
   }
 
+
 -- UPDATE
+
 
 type Msg
   = GetMemberCount
@@ -106,7 +111,9 @@ update msg model =
     UpdateMemberForm id ->
       (model, getMember id)
 
+
 -- VIEW
+
 
 view : Model -> Html Msg
 view {count, message, member, members} =
@@ -135,10 +142,13 @@ createMemberList member =
 
 -- SUBSCRIPTIONS
 
+
 subscriptions : Model -> Sub Msg
 subscriptions model = Sub.none
 
+
 -- HTTP
+
 
 getMemberCount : Cmd Msg
 getMemberCount =
@@ -160,7 +170,9 @@ getMembers : Cmd Msg
 getMembers =
   Http.send MembersReceived (Http.get (url "") decodeMembers)
 
+
 -- DECODER
+
 
 decodeMember : Decode.Decoder Member
 decodeMember =
@@ -173,7 +185,9 @@ decodeMembers : Decode.Decoder (List Member)
 decodeMembers =
   Decode.list decodeMember
 
+
 -- ENCODER
+
 
 encodeMember : Member -> Encode.Value
 encodeMember member =
